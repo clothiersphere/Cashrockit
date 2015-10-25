@@ -22,4 +22,8 @@ iron:router
 accounts-facebook
 dburles:google-maps
 materialize:materialize@=0.97.0
+<<<<<<< HEAD
 fourseven:scss
+=======
+mdg:geolocation
+>>>>>>> 3e82929fecfb1f92f11985b62fe2bed862a26278
