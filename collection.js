@@ -1,6 +1,5 @@
 Markers = new Mongo.Collection('markers');
-Merchant = new Mongo.Collection('merchant');
-Customer = new Mongo.Collection('customer');
-MerchantTransactions = new Mongo.Collection('merchanttransaction')
-CustomerTransactions = new Mongo.Collection('customertransaction')
-
+Merchants = new Mongo.Collection('merchant');
+Customers = new Mongo.Collection('customers');
+MerchantTransactions = new Mongo.Collection('merchanttransactions')
+CustomerTransactions = new Mongo.Collection('customertransactions')

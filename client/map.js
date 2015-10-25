@@ -10,15 +10,13 @@ Meteor.startup(function() {
 });
 
 Template.map.helpers({  
-  
-
   geolocationError: function() {
     var error = Geolocation.error();
     return error && error.message;
   },
   mapOptions: function() {
-  	if (GoogleMaps.loaded()) {
-      var latLng = Geolocation.latLng();
+  	var latLng = Geolocation.latLng();
+  	if (GoogleMaps.loaded() && latLng) {
       return {
         center: new google.maps.LatLng(latLng.lat, latLng.lng),
         zoom: 15
@@ -77,9 +75,19 @@ Template.map.helpers({
 Template.map.events({
 	"submit .cash-submit": function(event){
 		event.preventDefault();
-		google.maps.event.addDomListener(window, 'load', initMap);
+
+		var info = {
+			amount:11.00,
+			customerId:'5000003'
+		}
+
+		Meteor.call('chargeSecondaryAcct', info)
 	}
 	
+	// "submit ": function(){
+
+	// }
+
 });
 
 Template.map.onCreated(function() {  
@@ -94,45 +102,45 @@ Template.map.onCreated(function() {
 });
 
 
-function initMap(){
-		var latLng = Geolocation.latLng();
-		var pyrmont = new google.maps.LatLng(latLng.lat, latLng.lng)
+// function initMap(){
+// 		var latLng = Geolocation.latLng();
+// 		var pyrmont = new google.maps.LatLng(latLng.lat, latLng.lng)
 
-		map = new google.maps.Map(document.getElementById('map-canvas'), {
-		    center: pyrmont,
-		    zoom: 15
-		  });
+// 		map = new google.maps.Map(document.getElementById('map-canvas'), {
+// 		    center: pyrmont,
+// 		    zoom: 15
+// 		  });
 
-		infowindow = new google.maps.InfoWindow();
+// 		infowindow = new google.maps.InfoWindow();
 
-		// var text = event.target.submit.value;
-		// var latLng = Geolocation.latLng();
-			var service = new google.maps.places.PlacesService(map);
-			service.nearbySearch({
-				location: pyrmont,
-				radius: 500,
-				types: ['store']
-			}, callback);
-			console.log("initMap")
-}			// })
-		 //  var request = {
-		 //    location: pyrmont,
-		 //    radius: '500',
-		 //    types: ['store']
-		 //  };
+// 		// var text = event.target.submit.value;
+// 		// var latLng = Geolocation.latLng();
+// 			var service = new google.maps.places.PlacesService(map);
+// 			service.nearbySearch({
+// 				location: pyrmont,
+// 				radius: 500,
+// 				types: ['store']
+// 			}, callback);
+// 			console.log("initMap")
+// }			// })
+// 		 //  var request = {
+// 		 //    location: pyrmont,
+// 		 //    radius: '500',
+// 		 //    types: ['store']
+// 		 //  };
 
-		 //  // console.log(currentLocation)
-		 //  service = new google.maps.places.PlacesService(map);
-		 //  service.nearbySearch(request, callback);
+// 		 //  // console.log(currentLocation)
+// 		 //  service = new google.maps.places.PlacesService(map);
+// 		 //  service.nearbySearch(request, callback);
 		  
-		function callback(results, status) {
-		  if (status == google.maps.places.PlacesServiceStatus.OK) {
-		    for (var i = 0; i < results.length; i++) {
-		      var place = results[i];
-		      createMarker(results[i]);
-		    }
-		  }
-		}
+// 		function callback(results, status) {
+// 		  if (status == google.maps.places.PlacesServiceStatus.OK) {
+// 		    for (var i = 0; i < results.length; i++) {
+// 		      var place = results[i];
+// 		      createMarker(results[i]);
+// 		    }
+// 		  }
+// 		}
 
 // function initialize() {
 // 	map = new google.maps.Map(document.getElementById('map'),{
