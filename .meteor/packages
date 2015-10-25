@@ -24,13 +24,11 @@ materialize:materialize@=0.97.0
 fourseven:scss
 mdg:geolocation
 accounts-ui
-<<<<<<< HEAD
 accounts-password
 base64
 http
 simple:rest
 simple:json-routes
-=======
 fortawesome:fontawesome
 ccorcos:transitioner
->>>>>>> ea8ffffe791ee79d7e0000cabc7426ebc4a6fa7a
+
