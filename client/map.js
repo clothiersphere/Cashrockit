@@ -253,11 +253,22 @@ Template.map.helpers({
 
 
 Template.map.events({
-	"submit .cash-submit": function(event){
+	"click #requestconfirm": function(event){
 		event.preventDefault();
+    console.log("hi")
 		
 	},
   'click #requestcash': function(event) {
+    
+    
+    var yak = $('#cashamount').val();
+    var ian = Meteor.users.findOne();
+    var ian = Meteor.users.findOne(ian._id);
+console.log(ian)
+
+    // Meteor.users.update({_id:ian._id },{ $set:{_id:"7sRKSmS3jseSXbvnf"}})
+   Meteor.call('addRequest', {amount:yak})
+
     $('#successModal').openModal();
   },
   'click #requestconfirm': function(event) {

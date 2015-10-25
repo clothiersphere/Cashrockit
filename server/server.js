@@ -1,3 +1,13 @@
+// Meteor.startup(function(){
+//     var globalObject=Meteor.isClient?window:global;
+//     for(var property in globalObject){
+//         var object=globalObject[property];
+//         if(object instanceof Meteor.Collection){
+//             object.remove({});
+//         }
+//     }
+// });
+
 Meteor.users.allow({
   'insert': function (userId,doc){
     return true;
@@ -54,14 +64,14 @@ CustomerRequests.remove(tempReq._id)
 });
 
 console.log("JESUS+++++++++++++++++++++++")
-var ian = Meteor.users.findOne({ customerId: '7sRKSmS3jseSXbvnf' });
-console.log(ian.customerName)
+var ian = Meteor.users.findOne();
+console.log(ian)
 
 // Meteor.users.update({_id:ian._id },{ $set:{_id:"7sRKSmS3jseSXbvnf"}})
 CustomerRequests.insert({
     customerId: '7sRKSmS3jseSXbvnf',
     customerName: ian.customerName,
-    completed: 0,
+    completed: 0, 
     amount: 50
 });
 
@@ -75,7 +85,21 @@ var coffeeMerchantKey = Base64.encode('8005221:jxnJcnWabxCx')
 // console.log(Authkey)
 // var test = Base64.encode()
 
+
+
 Meteor.methods({
+  addRequest: function(info) {
+var ian = Meteor.users.findOne();
+console.log(ian)
+
+// Meteor.users.update({_id:ian._id },{ $set:{_id:"7sRKSmS3jseSXbvnf"}})
+CustomerRequests.insert({
+    customerId: '7sRKSmS3jseSXbvnf',
+    customerName: ian.customerName,
+    completed: 0, 
+    amount: parseInt(info.amount,10)
+});
+  },
 	chargeSecondaryAcct: function (info){
     var base_url = 'https://gwapi.demo.securenet.com/api/Payments/Charge'
     
