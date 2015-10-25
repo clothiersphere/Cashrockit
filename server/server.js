@@ -1,17 +1,43 @@
-JsonRoutes.add("get", "/amount/:id", function (req, res, next){
+Meteor.users.allow({
+  'insert': function (userId,doc){
+    return true;
+  }
+});
+
+Meteor.users.insert({
+  profile: { name: 'Ian Goober', customerId:'7sRKSmS3jseSXbvnf'}
+});
+
+var ian = Meteor.users.findOne();
+
+JsonRoutes.add("post", "/amount/:id", function (req, res, next){
   var customerId = req.params.id
-  var account = Customerrequests.findOne(customerId)
-  var object = {amount:acccount.amount, customerName:account.customerName}
-  console.log("GOT A GET")
+  var account = CustomerRequests.findOne({customerId:'7sRKSmS3jseSXbvnf'})
+  console.log(account.customerName)
+  var object = {cost:account.amount, customerName:account.customerName}
   JsonRoutes.sendResult(res, 200, object)
+  console.log(object)
 });
 
 JsonRoutes.add("post", "/transaction/:id", function (req, res, next){
-  var customer_guid = req.customer_guid
-  var amount = req.amount
+  // console.log(req)
+  var customer_guid = req.body.customer_guid
+  var amount = '50.00'
   var merchantId = req.params.id
-  console.log("GOT A POST")
+  console.log(customer_guid)
+  console.log(merchantId)
+  console.log(req.body.amount)
   JsonRoutes.sendResult(res, 200, object)
+});
+
+var ian = Meteor.users.findOne();
+
+// Meteor.users.update({_id:ian._id },{ $set:{_id:"7sRKSmS3jseSXbvnf"}})
+CustomerRequests.insert({
+    customerId: '7sRKSmS3jseSXbvnf',
+    customerName: ian.username,
+    completed: 0,
+    amount: '50.00'
 });
 
 var cashRocketsecureNetID = 8005209  
