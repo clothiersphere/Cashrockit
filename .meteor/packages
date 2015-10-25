@@ -22,3 +22,4 @@ iron:router
 accounts-facebook
 dburles:google-maps
 materialize:materialize@=0.97.0
+fourseven:scss
