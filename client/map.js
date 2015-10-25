@@ -266,7 +266,7 @@ Template.map.events({
     $('#successModal').openModal();
   },
   'click #requestconfirm': function(event) {
-    var text = "<h5 class='center-align'>There are 5 vendors near you.</h5>";
+    var text = "<img class='pin' src='/pin.png' /><h5 class='center-align'>There are 5 vendors near you.</h5>";
     $('#successModal').closeModal();
     $('#howmuchtext').remove();
     $('#amountcash').remove();
@@ -285,7 +285,10 @@ Template.map.onCreated(function() {
 
      var marker = new google.maps.Marker({
      		position: new google.maps.LatLng(latLng.lat, latLng.lng),
-        icon: '/pin.png',
+        icon: {
+          url:'/locationPin.png',
+          scaledSize: new google.maps.Size(25,50)
+        },
      		map: map.instance
      });
   });
