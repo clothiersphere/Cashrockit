@@ -14,6 +14,12 @@ html, body {
     height: 100%;
     background-color: $white;
 }
+hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
 
 #logo {
   width: 200px;
@@ -37,4 +43,26 @@ html, body {
 
 #logotype-highlight {
   color: $blue;
+}
+
+.login-text-and-button #login-buttons-facebook {
+  background: #3b5998;
+  background-color: #3b5998;
+  border-radius: 0;
+  border-color: none;
+  border: none;
+  width: 100%;
+}
+
+#login {
+  margin-top: 10px;
+  font-family: $opensans;
+  width: 100%;
+}
+
+#bottomPanel {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: $black;
 }

@@ -1,27 +1,204 @@
 var MAP_ZOOM = 15;
 var map;
-var service; 
+var service;
 var infowindow;
 var currentLocation;
 var location;
 
-Meteor.startup(function() {  
+Meteor.startup(function() {
   GoogleMaps.load();
 });
 
-Template.map.helpers({  
-  
-
+Template.map.helpers({
   geolocationError: function() {
     var error = Geolocation.error();
     return error && error.message;
   },
   mapOptions: function() {
+    //styling the map
+    //define the basic color of your map, plus a value for saturation and brightness
+    var	main_color = '#006064',
+    saturation_value= -20,
+    brightness_value= 5;
+    //we define here the style of the map
+    var mapStyle= [
+      {
+        //set saturation for the labels on the map
+        elementType: "labels",
+        stylers: [
+          {saturation: saturation_value}
+        ]
+      },
+        {	//poi stands for point of interest - don't show these lables on the map
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [
+          {visibility: "off"}
+        ]
+      },
+      {
+        //don't show highways lables on the map
+            featureType: 'road.highway',
+            elementType: 'labels',
+            stylers: [
+                {visibility: "off"}
+            ]
+        },
+      {
+        //don't show local road lables on the map
+        featureType: "road.local",
+        elementType: "labels.icon",
+        stylers: [
+          {visibility: "off"}
+        ]
+      },
+      {
+        //don't show arterial road lables on the map
+        featureType: "road.arterial",
+        elementType: "labels.icon",
+        stylers: [
+          {visibility: "off"}
+        ]
+      },
+      {
+        //don't show road lables on the map
+        featureType: "road",
+        elementType: "geometry.stroke",
+        stylers: [
+          {visibility: "off"}
+        ]
+      },
+      //style different elements on the map
+      {
+        featureType: "transit",
+        elementType: "geometry.fill",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      },
+      {
+        featureType: "poi",
+        elementType: "geometry.fill",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      },
+      {
+        featureType: "poi.government",
+        elementType: "geometry.fill",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      },
+      {
+        featureType: "poi.sport_complex",
+        elementType: "geometry.fill",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      },
+      {
+        featureType: "poi.attraction",
+        elementType: "geometry.fill",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      },
+      {
+        featureType: "poi.business",
+        elementType: "geometry.fill",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      },
+      {
+        featureType: "transit",
+        elementType: "geometry.fill",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      },
+      {
+        featureType: "transit.station",
+        elementType: "geometry.fill",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      },
+      {
+        featureType: "landscape",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      },
+      {
+        featureType: "road",
+        elementType: "geometry.fill",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      },
+      {
+        featureType: "road.highway",
+        elementType: "geometry.fill",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      },
+      {
+        featureType: "water",
+        elementType: "geometry",
+        stylers: [
+          { hue: main_color },
+          { visibility: "on" },
+          { lightness: brightness_value },
+          { saturation: saturation_value }
+        ]
+      }
+    ];
+//done map styles
+
   	if (GoogleMaps.loaded()) {
       var latLng = Geolocation.latLng();
       return {
         center: new google.maps.LatLng(latLng.lat, latLng.lng),
-        zoom: 15
+        zoom: 15,
+        styles: mapStyle,
+        streetViewControl:false,
+        mapTypeControl: false
       };
     }
 //     var latLng = Geolocation.latLng();
@@ -79,15 +256,16 @@ Template.map.events({
 		event.preventDefault();
 		google.maps.event.addDomListener(window, 'load', initMap);
 	}
-	
+
 });
 
-Template.map.onCreated(function() {  
+Template.map.onCreated(function() {
   GoogleMaps.ready('map', function(map) {
      var latLng = Geolocation.latLng();
 
      var marker = new google.maps.Marker({
      		position: new google.maps.LatLng(latLng.lat, latLng.lng),
+        icon: '/pin.png',
      		map: map.instance
      });
   });
@@ -124,7 +302,7 @@ function initMap(){
 		 //  // console.log(currentLocation)
 		 //  service = new google.maps.places.PlacesService(map);
 		 //  service.nearbySearch(request, callback);
-		  
+
 		function callback(results, status) {
 		  if (status == google.maps.places.PlacesServiceStatus.OK) {
 		    for (var i = 0; i < results.length; i++) {
@@ -150,5 +328,3 @@ function initMap(){
 // 	    	service = new google.maps.places.PlacesService(map);
 // 	    	service.nearbySearch(request, callback);
 // }
-
-

@@ -1,4 +1,4 @@
-<template name="map">  
+<template name="map">
   <div class="avatar">
 		{{currentUser.services.facebook.avatar}}
 	</div>
@@ -11,5 +11,24 @@
   	      <input name= 'submit' type="number" value="" id="cashsubmit">
   	    </div>
   	   </form> -->
-</template>  
-
+    <div id="bottomPanel">
+      <h5 id="howmuchtext" class="center-align">How much cash do you need?</h5>
+      <div class="row z-depth-2" id="cashamount-box">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col m6 offset-m3">
+              <i id="dollarsign" class="fa fa-usd prefix"></i>
+              <input id="cashamount" type="tel" class="validate">
+              <label for="cashamount">Amount</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <a class="cyan accent-4
+     waves-effect waves-light btn center-align z-depth-2" id="requestcash">Request Cash</a>
+        </div>
+      </div>
+    </div>
+</template>
