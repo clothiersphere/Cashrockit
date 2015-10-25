@@ -255,8 +255,22 @@ Template.map.events({
 	"submit .cash-submit": function(event){
 		event.preventDefault();
 		google.maps.event.addDomListener(window, 'load', initMap);
-	}
-
+	},
+  'click #requestcash': function(event) {
+    $('#successModal').openModal();
+  },
+  'click #requestconfirm': function(event) {
+    var text = "<h5 class='center-align'>There are 5 vendors near you.</h5>";
+    $('#successModal').closeModal();
+    $('#howmuchtext').remove();
+    $('#amountcash').remove();
+    $('#cashamount-box').append(text);
+    $('#requestcash').remove();
+    $('#bottom-button').append("<a class='cyan accent-4 waves-effect waves-light btn center-align z-depth-2' id='arrivedButton'>Arrived!</a>");
+  },
+  'click #arrivedButton': function(event) {
+    Router.go('/confirm');
+  }
 });
 
 Template.map.onCreated(function() {

@@ -14,7 +14,7 @@
     <div id="bottomPanel">
       <h5 id="howmuchtext" class="center-align">How much cash do you need?</h5>
       <div class="row z-depth-2" id="cashamount-box">
-        <form class="col s12">
+        <form class="col s12" id="amountcash">
           <div class="row">
             <div class="input-field col m6 offset-m3">
               <i id="dollarsign" class="fa fa-usd prefix"></i>
@@ -25,10 +25,20 @@
         </form>
       </div>
       <div class="row">
-        <div class="col s12">
+        <div class="col s12" id="bottom-button">
           <a class="cyan accent-4
-     waves-effect waves-light btn center-align z-depth-2" id="requestcash">Request Cash</a>
+     waves-effect waves-light btn center-align z-depth-2 modal-trigger" id="requestcash" href="#successModal">Request Cash</a>
         </div>
+      </div>
+    </div>
+    <div id="successModal" class="modal">
+      <div class="modal-content">
+        <h4 class="align-center success">Vendors found!</h4>
+        <p>The pins point to places that can give you cash. </p>
+        <p>You can go into any of them to request the cash you need.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" id="requestconfirm" class="waves-effect waves-green btn-flat success">Yes!</a>
       </div>
     </div>
 </template>
