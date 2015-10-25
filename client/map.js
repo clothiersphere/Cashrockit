@@ -196,7 +196,7 @@ Template.map.helpers({
       var latLng = Geolocation.latLng();
       return {
         center: new google.maps.LatLng(latLng.lat, latLng.lng),
-        zoom: 15,
+        zoom: 14,
         styles: mapStyle,
         streetViewControl:false,
         mapTypeControl: false
@@ -279,6 +279,54 @@ console.log(ian)
     $('#cashamount-box').append(text);
     $('#requestcash').remove();
     $('#bottom-button').append("<a class='cyan accent-4 waves-effect waves-light btn center-align z-depth-2' id='arrivedButton'>Arrived!</a>");
+    
+    GoogleMaps.ready('map', function(map) {
+       var latLng = Geolocation.latLng();
+
+    marker1 = new google.maps.Marker({
+        position: new google.maps.LatLng(36.1211957,-115.1762622),
+        icon: {
+          url:'/pin.png',
+          scaledSize: new google.maps.Size(25,50)
+        },
+        map: map.instance
+    });
+
+    marker2 = new google.maps.Marker({
+        position: new google.maps.LatLng(36.1181654,-115.172825),
+        icon: {
+          url:'/pin.png',
+          scaledSize: new google.maps.Size(25,50)
+        },
+        map: map.instance
+    });
+
+    marker3 = new google.maps.Marker({
+        position: new google.maps.LatLng(36.131998,-115.151705),
+        icon: {
+          url:'/pin.png',
+          scaledSize: new google.maps.Size(25,50)
+        },
+        map: map.instance
+    });
+    marker4 = new google.maps.Marker({
+        position: new google.maps.LatLng(36.1368842,-115.1656005),
+        icon: {
+          url:'/pin.png',
+          scaledSize: new google.maps.Size(25,50)
+        },
+        map: map.instance
+    }); 
+    marker4 = new google.maps.Marker({
+        position: new google.maps.LatLng(36.127643,-115.1484354),
+        icon: {
+          url:'/pin.png',
+          scaledSize: new google.maps.Size(25,50)
+        },
+        map: map.instance
+    }); 
+    google.maps.event.trigger(map, 'resize');
+    })
   },
   'click #arrivedButton': function(event) {
     Router.go('/confirm');
@@ -296,9 +344,14 @@ Template.map.onCreated(function() {
           scaledSize: new google.maps.Size(25,50)
         },
      		map: map.instance
-     });
-  });
-});
+     })   
+
+
+
+
+     
+   })
+})
 // function initMap(){
 // 		var latLng = Geolocation.latLng();
 // 		var pyrmont = new google.maps.LatLng(latLng.lat, latLng.lng)
