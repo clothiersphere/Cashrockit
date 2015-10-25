@@ -4,15 +4,13 @@ Meteor.users.allow({
   }
 });
 
-Meteor.users.insert({
-  profile: { name: 'Ian Goober', customerId:'7sRKSmS3jseSXbvnf'}
-});
+Meteor.users.insert({ name: 'Ian Go0ber', customerId:'7sRKSmS3jseSXbvnf', wp_customer_id: 5000003, customerName: 'Ian'});
 
 var ian = Meteor.users.findOne();
 
 JsonRoutes.add("post", "/amount/:id", function (req, res, next){
   var customerId = req.params.id
-  var account = CustomerRequests.findOne({customerId:'7sRKSmS3jseSXbvnf'})
+  var account = CustomerRequests.findOne({customerId:customerId})
   console.log(account.customerName)
   var object = {cost:account.amount, customerName:account.customerName}
   JsonRoutes.sendResult(res, 200, object)
@@ -20,24 +18,51 @@ JsonRoutes.add("post", "/amount/:id", function (req, res, next){
 });
 
 JsonRoutes.add("post", "/transaction/:id", function (req, res, next){
-  // console.log(req)
+  console.log(req.body)
+  var merchantId = req.params.id
+
+  var tempMerchant = Merchants.findOne({merchantId:merchantId})
+  console.log(tempMerchant)
+
   var customer_guid = req.body.customer_guid
+  
+  var tempUser = Meteor.users.findOne({customerId:customer_guid})
+  console.log(tempUser)
+
+  var tempReq = CustomerRequests.findOne({customerId:customer_guid})
+
+CustomerRequests.remove(tempReq._id)
+
+
+  var info = {
+    amount:req.body.amount,
+    customerId:tempUser.wp_customer_id,
+    secureNetId:tempMerchant.secureNetId,
+    secureNetKey:tempMerchant.secureNetKey
+  }
+
+  console.log(info);
+
+  Meteor.call('chargeSecondaryAcct', info)
+  
   var amount = '50.00'
   var merchantId = req.params.id
   console.log(customer_guid)
   console.log(merchantId)
   console.log(req.body.amount)
-  JsonRoutes.sendResult(res, 200, object)
+  JsonRoutes.sendResult(res, 200, {})
 });
 
-var ian = Meteor.users.findOne();
+console.log("JESUS+++++++++++++++++++++++")
+var ian = Meteor.users.findOne({ customerId: '7sRKSmS3jseSXbvnf' });
+console.log(ian.customerName)
 
 // Meteor.users.update({_id:ian._id },{ $set:{_id:"7sRKSmS3jseSXbvnf"}})
 CustomerRequests.insert({
     customerId: '7sRKSmS3jseSXbvnf',
-    customerName: ian.username,
+    customerName: ian.customerName,
     completed: 0,
-    amount: '50.00'
+    amount: 50
 });
 
 var cashRocketsecureNetID = 8005209  
@@ -61,17 +86,17 @@ Meteor.methods({
         // 'Authorization': 'Basic '+ cashrocketMerchantKey
       },
       data: {
-        'amount':11.00,
+        'amount':info.amount,
         'paymentVaultToken': {
           // 'customerId':'5000003',
-          'customerId':'5000004',
+          'customerId':info.customerId,
           'paymentMethodID':'1'
         },
         'vaultCredentials':{
          //'secureNetID':8005209,
-           'secureNetID':8005221,
+           'secureNetID':info.secureNetID,
         // 'secureNetKey':'ZdzVYAYIWmIo'
-           'secureNetKey':'jxnJcnWabxCx'
+           'secureNetKey':info.secureNetKey
         },
         'extendedInformation': {
           'typeOfGoods': 'PHYSICAL'

@@ -255,12 +255,7 @@ Template.map.helpers({
 Template.map.events({
 	"submit .cash-submit": function(event){
 		event.preventDefault();
-		var info = {
-			amount:11.00,
-			customerId:'5000003'
-		}
-
-		Meteor.call('chargeSecondaryAcct', info)
+		
 	},
   'click #requestcash': function(event) {
     $('#successModal').openModal();
