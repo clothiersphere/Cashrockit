@@ -9,20 +9,14 @@ Meteor.startup(function() {
   GoogleMaps.load();
 });
 
-<<<<<<< HEAD
-Template.map.helpers({  
-=======
 Template.map.helpers({
->>>>>>> ea8ffffe791ee79d7e0000cabc7426ebc4a6fa7a
   geolocationError: function() {
     var error = Geolocation.error();
     return error && error.message;
   },
   mapOptions: function() {
-<<<<<<< HEAD
   	var latLng = Geolocation.latLng();
   	if (GoogleMaps.loaded() && latLng) {
-=======
     //styling the map
     //define the basic color of your map, plus a value for saturation and brightness
     var	main_color = '#006064',
@@ -198,10 +192,8 @@ Template.map.helpers({
       }
     ];
 //done map styles
-
   	if (GoogleMaps.loaded()) {
       var latLng = Geolocation.latLng();
->>>>>>> ea8ffffe791ee79d7e0000cabc7426ebc4a6fa7a
       return {
         center: new google.maps.LatLng(latLng.lat, latLng.lng),
         zoom: 15,
@@ -210,6 +202,9 @@ Template.map.helpers({
         mapTypeControl: false
       };
     }
+  }
+}
+});
 //     var latLng = Geolocation.latLng();
 //     var pyrmont = new google.maps.LatLng(latLng.lat, latLng.lng)
 //     // Initialize the map once we have the latLng.
@@ -255,30 +250,17 @@ Template.map.helpers({
 // 	  google.maps.event.addListener(marker, 'click', function() {
 // 	    infowindow.setContent(place.name);
 // 	    infowindow.open(map, this);
-// 	  });
-// 	}
-	}
-});
+
 
 Template.map.events({
 	"submit .cash-submit": function(event){
 		event.preventDefault();
-<<<<<<< HEAD
-
 		var info = {
 			amount:11.00,
 			customerId:'5000003'
 		}
 
 		Meteor.call('chargeSecondaryAcct', info)
-	}
-	
-	// "submit ": function(){
-
-	// }
-
-=======
-		google.maps.event.addDomListener(window, 'load', initMap);
 	},
   'click #requestcash': function(event) {
     $('#successModal').openModal();
@@ -295,7 +277,6 @@ Template.map.events({
   'click #arrivedButton': function(event) {
     Router.go('/confirm');
   }
->>>>>>> ea8ffffe791ee79d7e0000cabc7426ebc4a6fa7a
 });
 
 Template.map.onCreated(function() {
@@ -309,9 +290,6 @@ Template.map.onCreated(function() {
      });
   });
 });
-
-
-<<<<<<< HEAD
 // function initMap(){
 // 		var latLng = Geolocation.latLng();
 // 		var pyrmont = new google.maps.LatLng(latLng.lat, latLng.lng)
@@ -351,7 +329,6 @@ Template.map.onCreated(function() {
 // 		    }
 // 		  }
 // 		}
-=======
 function initMap(){
 		var latLng = Geolocation.latLng();
 		var pyrmont = new google.maps.LatLng(latLng.lat, latLng.lng)
@@ -391,7 +368,6 @@ function initMap(){
 		    }
 		  }
 		}
->>>>>>> ea8ffffe791ee79d7e0000cabc7426ebc4a6fa7a
 
 // function initialize() {
 // 	map = new google.maps.Map(document.getElementById('map'),{
