@@ -1,4 +1,7 @@
 <template name="map">  
+  <div class="avatar">
+		{{currentUser.services.facebook.avatar}}
+	</div>
   <div class="map-container">
     	{{> googleMap name="map" options=mapOptions}}
   </div>

@@ -1,3 +1,4 @@
+
 Meteor.methods({
 	searchNearby: function (){
   	var currentLocation = new google.maps.LatLng(latLng.lat, latLng.lng)

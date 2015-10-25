@@ -23,3 +23,4 @@ accounts-facebook
 dburles:google-maps
 materialize:materialize@=0.97.0
 mdg:geolocation
+accounts-ui
