@@ -3,7 +3,8 @@
 
 $montserrat: Montserrat, sans-serif;
 $opensans: Opensans, sans-serif;
-$black: #455a64;  //blue-gray darken-2
+$black: #263238;
+$darkgray: #455a64;  //blue-gray darken-2
 $gray: #37474f; //blue-gray darken-3
 $white: #f5f5f5; //grey lighten-4
 $orange: #ff5722; //deep-orange
@@ -13,6 +14,13 @@ $green: #1de9b6; //teal accent-3
 html, body {
     height: 100%;
     background-color: $white;
+    color: $black;
+}
+hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 #logo {
@@ -37,4 +45,31 @@ html, body {
 
 #logotype-highlight {
   color: $blue;
+}
+
+.login-text-and-button #login-buttons-facebook {
+  background: #3b5998;
+  background-color: #3b5998;
+  border-radius: 0;
+  border-color: none;
+  border: none;
+  width: 100%;
+}
+
+#login {
+  margin-top: 0px;
+  font-family: $opensans;
+  width: 100%;
+}
+
+#bottomPanel {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: $darkgray;
+}
+
+.success {
+  color: darken($green, 10);
+  text-align: center;
 }
